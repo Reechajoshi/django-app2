@@ -1,0 +1,111 @@
+<!-- extending static header bar -->
+{% extends 'base.html' %}
+{% block content %}
+    
+    <!-- calling profiles.js file -->
+    <script type="text/javascript" src="/js/?request=profiles"></script>
+        
+    <!-- <div id="profile_container">
+        <div id="profile_heading">
+            <div style="float:left;">
+                Profiles
+            </div>
+            <div style="float:right;">
+                <a href="#" onclick="showCreateProfile();return false;" style="font-size: 20px;" class="button">Create New Profile</a>
+            </div>
+            <div id="loading">Loading...</div>
+            <div class="clear"></div>
+        </div>
+        
+        <div id="profile_details">
+            <div id="current_profile_container">
+            </div>
+            <div id="new_profile_container">
+                <input type="hidden" id="hidden_profileIdentifier" name="profileIdentifier" value="">
+                <input type="hidden" id="hidden_profileUUID" name="hidden_profileUUID" value="">
+                <div id="general_container">
+                    <div id="general_heading">
+                        <div style="margin: 3px 3px 3px 4px;">General</div>
+                    </div>
+                    <div id="general_details">
+                        <div id="general_ques_block">
+                            <div id="profile_field_title"><span>Name</span><span>( Display name of the profile - shown on the device ): </span></div>
+                            <div id="profile_field_element"><input name="device_name" id="device_name" type="text"></div>
+                        </div>
+                        <div id="general_ques_block">
+                            <div id="profile_field_title"><span>Description</span><span>( Small text describing the profile ) :</span></div> 
+                            <div id="profile_field_element"><input name="device_description" id="device_description" type="text"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="restrictions_container">
+                    <div id="restrictions_heading">
+                        <div id="restriction_field_element"><input type="checkbox" onclick="toggleNewProfileDetails('restrictions');" name="include_restrictions_details" id="include_restrictions_details"></div>
+                        <div id="restriction_field_title"><label for="include_restrictions_details">Restrictions</label></div>
+                    </div>
+                    <!-- will be hidden at first ->
+                    <div id="restrictions_details" style="display:none;">
+                        <div id="restriction_ques_block">
+                            <div id="restriction_field_element"><input type="checkbox" name="install_apps" id="install_apps" value="install_apps"  checked /></div>
+                            <div id="restriction_field_title"><label for="install_apps">Allow installing apps</label></div>
+                        </div>
+                        
+                        <div id="restriction_ques_block">
+                            <div id="restriction_field_element"><input type="checkbox" name="camera" id="camera" value="camera" onclick="toggleRestrictionsSubquestion('camera', 'face_time');" /></div>
+                            <div id="restriction_field_title"><label for="camera">Allow use of camera</label></div>
+                        </div>
+                        
+                        <div id="restriction_sub_ques_block">
+                            <div id="restriction_field_element"><input type="checkbox" name="face_time" id="face_time" value="face_time" disabled /></div>
+                            <div id="restriction_field_title"><label for="face_time">Allow Face Time</label></div>
+                        </div>
+                        
+                        <div id="restriction_ques_block">
+                            <div id="restriction_field_element"><input type="checkbox" name="screen_capture" id="screen_capture" value="screen_capture" checked /></div>
+                            <div id="restriction_field_title"><label for="screen_capture">Allow screen capture</label></div>
+                        </div>
+                        
+                        <div id="restriction_ques_block">
+                            <div id="restriction_field_element"><input type="checkbox" name="auto_sync" id="auto_sync" value="auto_sync" checked /></div>
+                            <div id="restriction_field_title"><label for="auto_sync">Allow automatic sync while roaming</label></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Save BUtton ->
+                <div id="save_profile_container">
+                    <a class="button" style="padding: 2px 5px;font-size:14px;" href="#" onclick="validateProfileDetails(); return false;">Save Profile</a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    
+    <div class="profile_list_container">
+        <div id="profile_header">
+            <div id="profile_heading">
+                Profiles
+            </div>
+            <div id="create_profile_button">
+                +
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="profile_list">
+            <div class="profile_block">
+                <div class="profile_name">
+                    Red Dragon Car
+                </div>
+                <div class="profile_options_container">
+                    <div class="profile_options">A</div>
+                    <div class="profile_options">C</div>
+                    <div class="profile_options">D</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="create_profile_container">
+        Create
+    </div>
+    
+{% endblock %}

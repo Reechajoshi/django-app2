@@ -1,0 +1,468 @@
+/** style.css **/
+* {
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+html, body {
+    width:100%;
+    height:100%;
+    
+    overflow: hidden;
+}
+body {
+    margin:0;
+    padding:0;
+    
+    font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	font-size: 14px;
+}
+
+.button {
+    color: rgb(87, 87, 87);
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 0 5px;
+    background: rgb(216, 216, 216);
+    cursor: pointer;
+    /* font-size: 20px; */
+    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+.clear {
+    clear: both;
+}
+
+/* Login page style */
+#login_container {
+    display:table;
+    height:100%;
+    width:100%;
+}
+
+#login {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#login_logo_container {
+    padding: 5px;
+    font-size: 20px;
+    background:black;
+    color:white;
+}
+
+#header_bar {
+    background: #006BA1;
+    height:5px;
+}
+
+#login_content {
+    padding:10px 0;
+}
+
+#login_row {
+    margin: 10px 25px;
+}
+
+#login_label {
+    display: inline-block;width: 100px;
+}
+
+#login_input {
+    display: inline-block;
+    width: 50%;
+}
+
+#login_input input {
+    width: 100%;
+}
+
+#submit_button {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.redtxt
+{
+    color: rgb(204, 17, 17);
+}
+
+#loading_div
+{
+    position: fixed; 
+    top: 0px; 
+    left: 650px; 
+    background-color: #006BA1; 
+    display: none; 
+    padding: 3px; 
+    padding-right: 7px; 
+    padding-left: 7px; 
+}
+
+/* header styling */
+#header {
+    background: #000;
+    color: #fff;
+    padding: 9px 0; /* reduced by 1px to remove scrolling from ff */
+    border-bottom: 5px solid #006BA1;
+}
+
+#header_logo {
+    float: left;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+#header_menu_container {
+    float: right;
+    margin-right: 15px;
+}
+
+#header_menu {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.header_menu_block {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 5px;
+}
+
+/* profile manager styling */
+#main_content {
+    /* height: 92%; */
+    overflow: hidden;
+}
+
+#profile_list_container, #devices_list_container {
+    display: inline-block;
+    width: 25%;
+    /* height: 100%; */
+    border-right: 1px solid black;
+    vertical-align: top;
+    /* background: antiquewhite; */
+}
+
+#profile_detail_container, #devices_detail_container {
+    display: inline-block;
+    width: 75%;
+    /* height: 100%; */
+    vertical-align: top;
+    padding: 10px;
+    /* background: wheat; */
+}
+
+#profile_list_content_container{
+    overflow: auto;
+}
+
+#profile_list_header_container, #devices_list_header_container {
+    font-size: 18px;
+    padding: 5px 10px;
+    border-bottom: 1px solid black;
+}
+
+#profile_list_heading, #devices_list_heading {
+    font-weight: bolder;
+    float:left;
+    /* width: 85%; */
+    /* vertical-align: middle; */
+}
+
+#profile_menu_container, #devices_menu_container {
+    float:right;
+    /* width: 15%; */
+    /* vertical-align: middle; */
+    text-align: center;
+}
+
+.profile_list_block, .devices_list_block {
+    border-bottom: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.profile_list_block_sel, .device_list_block_sel {
+    background: #EAE5E5
+}
+
+.profile_name, .devices_name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#profile_title_container {
+    border-bottom: 1px solid black;
+    padding: 5px 0;
+}
+
+#profile_title {
+    float:left;
+}
+
+#profile_details_menu {
+    float: right;
+    margin-right: 5px;
+}
+
+#profile_detail_name , #profile_detail_date_container {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#new_profile_container {
+    /* border: 1px solid black; */
+    vertical-align:top;
+    margin-left: 15px;
+    margin-top: 15px;
+    font-size: 10px;
+}
+
+#general_details, #restrictions_details{
+    font-size: 11px;
+}
+
+#general_ques_block {
+    margin: 5px;
+}
+
+#profile_field_element input {
+    width:80%;
+}
+
+#general_heading, #restrictions_heading {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+#restriction_field_element {
+    display:inline-block;
+    vertical-align:middle;
+}
+
+#restriction_field_title {
+    display:inline-block;
+    vertical-align:middle;
+}
+
+#restrictions_details{
+    margin-left: 15px;
+}
+
+#restriction_sub_ques_block {
+    margin-left:20px;
+}
+
+#save_profile_container {
+    margin-top:10px;
+    margin-left:10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    text-align: right;
+}
+
+/* devices styling */
+#devices_detail_container {
+    font-size: 10px;
+}
+
+#devices_details {
+    color: rgb(87, 87, 87);
+}
+
+#devices_menu {
+    float: right;
+    width: 40%;
+}
+
+#devices_info_container{
+    border-top: 1px solid black;
+}
+
+#device_info_row {
+    margin: 10px 0;
+}
+
+#device_info_block{
+    width: 28%;
+    display: inline-block;
+    margin: 3px 0;
+}
+
+#device_info_label {
+    display: inline-block;
+    font-weight: bold;
+    width: 120px;
+}
+
+#device_info_val {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#edit_device_detail {
+    margin: 10px 0;
+    width: 100%;
+}
+#edit_device_label {
+    display: inline-block;
+    width: 17%;
+}
+#edit_device_input {
+    display: inline-block;
+    width: 80%;
+}
+#edit_device_input input {
+    width: 100%;
+}
+#devices_desc_col {
+    display: inline-block;
+    vertical-align: top;
+    width: 49%;
+}
+#devices_name_block {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: top;
+}
+.device_profile_name, .device_app_name {
+    font-size: 13px;
+    width: 85% !important;
+    font-weight: bold;
+}
+#device_list_block {
+    border-bottom: 1px solid black;
+    font-size: 20px;
+}
+#device_profiles_heading, #device_apps_heading {
+    border-bottom: 1px solid black;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+#device_profile_block, #device_app_block {
+    border-bottom: 1px solid rgb(150, 150, 150);
+    margin: 10px 0;
+    width: 88%;
+}
+#device_prof_fld, #device_app_fld, #device_app_details {
+    margin: 5px 0;
+}
+#device_prof_fld_lbl, #device_app_fld_lbl {
+    display: inline-block;
+    vertical-align: top;
+    width: 20%;
+}
+#device_prof_fld_val, #device_app_fld_val {
+    display: inline-block;
+    width: 60%; 
+}
+.device_info_show_more, .device_info_remove, .device_info_uninstall {
+    color: blue;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.tab_container, #profile_list_content_container, #devices_list_content_container {
+    /* height: 76%; */
+    overflow: auto;
+}
+
+.title_msg
+{
+    border-bottom: 1px solid #000000; 
+    padding: 10px; 
+    font-size: 15px; 
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#profile_action_list_container{
+}
+
+#profile_action_list_element, .app_action_list_element{
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 5px;
+}
+
+#profile_action_list_element_anchor{
+    width: 100%; 
+    height: 80px; 
+    display: block;
+    cursor: pointer;
+}
+
+#profile_action_list_element_name{
+    font-weight: bold;
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+.profile_action_menu, .device_apps_menu {
+    display: inline-block;
+}
+
+.profile_action_menu a, .device_apps_menu a {
+    color: #767676;
+    text-decoration: none;
+}
+
+#profile_action_list_element_desc{
+    font-size: 13px;
+    padding-top: 3px;
+}
+
+#device_action_heading {
+    font-size: 20px;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+}
+
+#device_actions_container {
+    padding: 10px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #cccccc;
+}
+
+.device_action_title_container {
+    font-size: 18px;
+}
+
+.device_action_img_container {
+    display: inline-block;
+}
+
+.device_action_img_container img {
+    height: 80px;
+    width: 80px;
+}
+
+.device_action_desc_container {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+}
+
+.device_action_desc {
+    font-size: 14px;
+}
+
+#no_device_profiles{
+    font-size: 14px;
+    margin-left:10px;
+}   

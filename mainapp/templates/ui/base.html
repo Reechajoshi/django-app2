@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Macgregor MDM Services</title>
+        
+        <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="/static/js/util.js"></script>
+        
+        <script type="text/javascript" src="/js/?request=base"></script>
+        
+        {% if request.path == '/profiles/' %}
+            <script type="text/javascript" src="/js/?request=profiles"></script>
+        {% elif request.path in "/devices/,/devices/actions/,/devices/profiles/,/devices/apps/" %}
+            <script type="text/javascript" src="/js/?request=devices"></script>
+        {% endif %}
+        
+        <link rel="stylesheet" href="/static/stylesheet/jquery-ui.css">
+        <link rel="stylesheet" href="/static/stylesheet/main.css" />
+    </head>
+    
+    <body style="margin:0;padding:0;">
+    
+        {% if request.path != '/login/' %}
+        <div id="header">
+            <div id="header_logo">
+                Macgregor MDM Services
+            </div>
+            <div id="header_menu_container">
+                <div id="header_menu">
+                    <div class="header_menu_block">
+                        <a href="/profiles/" title="Profiles">
+                            <img src='{% static "images/profile_dark.png" %}' />
+                        </a>
+                    </div>
+                    <div class="header_menu_block" title="Devices">
+                        <a href="/devices/">
+                            <img src='{% static "images/devices_dark.png" %}'>
+                        </a>
+                    </div>
+                    <div class="header_menu_block" title="Device Action">
+                        <a href="/devices/actions/">
+                            <img src='{% static "images/devices_dark.png" %}'>
+                        </a>
+                    </div>
+                    <div class="header_menu_block" title="Manage Devices profiles">
+                        <a href="/devices/profiles">
+                            <img src='{% static "images/devices_dark.png" %}'>
+                        </a>
+                    </div>
+                    <div class="header_menu_block" title="Manage Devices Apps">
+                        <a href="/devices/apps">
+                            <img src='{% static "images/devices_dark.png" %}'>
+                        </a>
+                    </div>
+                    <div class="header_menu_block" title="Logout">
+                        <a href="/logout/">
+                            <img src='{% static "images/logout_dark.png" %}'>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            
+            <div id="loading_div">Loading...</div>
+            
+        </div>
+        {% endif %}
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

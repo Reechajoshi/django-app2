@@ -1,0 +1,221 @@
+<!-- extending static header bar -->
+{% extends 'base.html' %}
+{% block content %}
+    <div style="color:rgb(80, 80, 80)">
+        <!-- Subtitle New Profile -->
+        <div style="font-weight: bold;width: 95%;border-bottom: 1px solid black;margin-left: 10px;margin-top: 10px;font-size: 25px;">
+            New Profile: 
+        </div>
+
+        <!-- Form Container -->
+        <div style="margin:10px;width:95%;">
+            <!-- General Container -->
+            <div style="margin-left: 10px;font-size: 19px;width: 80%;border-bottom: 1px solid black;">
+                General:
+            </div>
+
+            <!-- General Form Fields -->
+            <!-- Name of profile -->
+            <div style="width: 50%;margin: 10px;">
+                <div><span>Name</span><span>( Display name of the profile - shown on the device ): </span></div>
+                <div style="margin-top: 5px;"><input style="width:100%;" name="device_name" id="device_name" type="text"></div>
+            </div>
+
+            <!-- identifier -->
+            <div style="width: 50%;margin: 10px;">
+                <div><span>Identifier</span><span>( Unique identifier for the profile - e.g. com.company.profile )</span></div> 
+                <div style="margin-top: 5px;"><input style="width:100%;" name="device_identifier" id="device_identifier" type="text"></div>
+            </div>
+
+            <!-- organization -->
+            <div style="width: 50%;margin: 10px;">
+                <div><span>Organization</span><span>( Name of the organization for the profile )</span></div>
+                <div style="margin-top: 5px;"><input style="width:100%;" name="organization" id="organization" type="text"></div>
+            </div>
+            <!-- End of general form fields -->
+
+            <!-- End of General Container -->
+            
+            <!-- Restrictions Container -->
+            <div style="margin-left: 10px;font-size: 19px;width: 80%;border-bottom: 1px solid black;padding-bottom:3px;">
+                <a href="#" style="text-decoration:none;color:rgb(80, 80, 80);background:rgb(216, 216, 216);padding:0 5px;border:1px solid black;" onclick="if(document.getElementById('restrictions_fields').style.display=='none') document.getElementById('restrictions_fields').style.display='block' ; else document.getElementById('restrictions_fields').style.display='none';return false;">Restrictions:</a>
+            </div>
+            
+            <!-- Restrictions Form Fields -->
+            <div style="margin: 10px;display:none;" id="restrictions_fields">
+                <!-- Device functionality -->
+                <div style="margin-bottom: 5px;width: 40%;border-bottom:1px solid rgb(150, 150, 150);">
+                    <div><span>Device Functionality </span><span>( Enable use of device features ): </span></div>
+                </div>
+                
+                <!-- identifier -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="install_apps" id="install_apps" value="install_apps"  checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="install_apps">Allow installing apps</label></div>
+                </div>
+                
+                <!-- camera -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="camera" id="camera" value="camera" onclick="if(this.checked==true) document.getElementById('face_time').disabled=false; else document.getElementById('face_time').disabled=true;" /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="camera">Allow use of camera</label></div>
+                </div>
+    
+                <!-- face time -->
+                <div style="margin-left: 10px;">
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="face_time" id="face_time" value="face_time" disabled /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="face_time">Allow Face Time</label></div>
+                </div>
+
+                <!-- screen capture -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="screen_capture" id="screen_capture" value="screen_capture" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="screen_capture">Allow screen capture</label></div>
+                </div>
+
+                <!-- auto sync roaming -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="auto_sync" id="auto_sync" value="auto_sync" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="auto_sync">Allow automatic sync while roaming</label></div>
+                </div>
+        
+                <!-- siri -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="siri" id="siri" value="siri" onclick="if(this.checked == true) document.getElementById('locked_siri').disabled=false; else document.getElementById('locked_siri').disabled=true;" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="siri">Allow Siri</label></div>
+                </div>
+
+                <!-- locked siri -->
+                <div style="margin-left:10px;">
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="locked_siri" id="locked_siri" value="locked_siri" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="locked_siri">Allow Siri while device locked </label></div>
+                </div>
+
+                <!-- voice dialling -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="voice_dial" id="voice_dial" value="voice_dial" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="voice_dial">Allow voice dialling</label></div>
+                </div>
+
+                <!-- inapp purchase -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="inapp_purchase" id="inapp_purchase" value="inapp_purchase" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="inapp_purchase">Allow In-App Purchase</label></div>
+                </div>
+
+                <!-- intunes password -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="itune_pass" id="itune_pass" value="itune_pass" /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="itune_pass">Force user to enter iTunes Store password for all purchase</label></div>
+                </div>
+
+                <!-- multiplayer gaming -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="multiplayer_gaming" id="multiplayer_gaming" value="multiplayer_gaming" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="multiplayer_gaming">Allow multiplayer gaming</label></div>
+                </div>
+
+                <!-- add gamecenter friends -->
+                <div>
+                    <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="add_gamecenter_frnd" id="add_gamecenter_frnd" value="add_gamecenter_frnd" checked /></div>
+                    <div style="display:inline-block;vertical-align:middle;"><label for="add_gamecenter_frnd">Allow adding Game Center friends</label></div>
+                </div>	
+            
+            <!-- Applications -->
+            <div style="margin-top: 10px;border-bottom:1px solid rgb(150, 150, 150);width: 40%;margin-bottom: 5px;">
+                <div><span>Applications </span><span>( Enable access to applications on the device ): </span></div>
+            </div>
+
+            <!-- youtube -->
+            <div>
+                <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="youtube" id="youtube" value="youtube" checked /></div>
+                <div style="display:inline-block;vertical-align:middle;"><label for="youtube">Allow use of Youtube</label></div>
+            </div>
+            
+            <!-- itunes -->
+            <div>
+                <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="itunes" id="itunes" value="itunes" checked /></div>
+                <div style="display:inline-block;vertical-align:middle;"><label for="itunes">Allow use of iTunes Store</label></div>
+            </div>
+
+            <!-- safari -->
+            <div>
+                <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="safari" id="safari" value="safari" onclick="if(this.checked == true) { document.getElementById('autofill').disabled=false; document.getElementById('fraud_warning').disabled=false; document.getElementById('javascript').disabled=false; document.getElementById('popup').disabled=false; document.getElementById('cookies').disabled=false; } else { document.getElementById('autofill').disabled=true; document.getElementById('fraud_warning').disabled=true; document.getElementById('javascript').disabled=true; document.getElementById('popup').disabled=true; document.getElementById('cookies').disabled=true; }" /></div>
+                <div style="display:inline-block;vertical-align:middle;"><label for="safari">Allow use of Safari</label></div>
+            </div>
+
+            <!-- autofill -->
+            <div style="margin-left:10px;">
+                <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="autofill" id="autofill" value="autofill" checked disabled /></div>
+                <div style="display:inline-block;vertical-align:middle;"><label for="autofill">Enable autofill</label></div>			
+            </div>
+    
+            <!-- fraud warning -->
+            <div style="margin-left:10px;">
+                <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="fraud_warning" id="fraud_warning" value="fraud_warning"  disabled /></div>
+                <div style="display:inline-block;vertical-align:middle;"><label for="fraud_warning">Force fraud warning</label></div>
+            </div>
+
+            <!-- javascript -->
+            <div style="margin-left:10px;">
+                <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="javascript" id="javascript" value="javascript" checked  disabled /></div>
+                <div style="display:inline-block;vertical-align:middle;"><label for="javascript">Enable JavaScript</label></div>		
+            </div>
+        
+            <!-- popup -->
+            <div style="margin-left:10px;">
+                <div style="display:inline-block;vertical-align:middle;"><input type="checkbox" name="popup" id="popup" value="popup" disabled /></div>
+                <div style="display:inline-block;vertical-align:middle;"><label for="popup">Block pop-ups</label></div>
+            </div>
+            
+            <!-- cookies -->
+            <div style="margin-left:10px;">
+                <div>Accept cookies</div>
+                <div style="margin-top:3px;">
+                    <select name="cookies" id="cookies" disabled>
+                        <option value="0">Never</option>
+                        <option value="1">From visited sites</option>
+                        <option value="2" selected >Always</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- End of restrictions form fields -->				
+            
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

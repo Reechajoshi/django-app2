@@ -1,0 +1,42 @@
+<!-- extending static header bar -->
+{% extends 'ui/base.html' %}
+{% block content %}
+    {% load staticfiles %}
+    <div id="main_content">
+        <div id="devices_list_container">
+            <div id="devices_list_header_container">
+                <div id="devices_list_heading">Manage Devices Apps</div>
+                <!-- <div id="devices_menu_container">
+                    <a href="#" onclick="return false;"><img style="height: 15px;width: 15px;" src='{% static "images/new.png" %}' /></a>
+                    <a href="#" onclick="return false;"><img style="height: 15px;width: 15px;" src='{% static "images/delete.png" %}' /></a>
+                </div> -->
+                <div class="clear"></div>
+            </div>
+            
+            <div id="devices_list_content_container">
+                
+            </div>
+        </div><!-- 
+        --><div id="devices_detail_container">
+                <div class="title_msg">
+                    You may Install/Uninstall Apps from device.
+                </div>  
+                <div id="app_action_list_container" class="tab_container" >
+                    <div class="app_action_list_element" id="install_aot_container">
+                        <div style="display:inline-block;vertical-align:middle;width:49%;">
+                            <div style="display: inline-block;vertical-align:middle;">
+                                <img src="/static/images/arms.png" style="width: 80px;">
+                            </div>
+                            <div style="display: inline-block;vertical-align:middle;font-size:15px;font-weight:bold;margin-left:10px;">
+                                ARMS on the Tab
+                            </div>
+                        </div>
+                        <div style="text-align:right; margin-right:10px;display:inline-block;vertical-align:middle;width:49%;font-size:14px;">
+                            <div class="device_apps_menu"><a onclick="procInstallAOTCommand(); return false;" href="#"> Install </a> </div> | <div  class="device_apps_menu"><a onclick="procUnInstallAOTCommand(); return false;" href="#"> Uninstall </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

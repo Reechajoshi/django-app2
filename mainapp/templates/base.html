@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Macgregor MDM Services</title>
+        
+        <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/modernizr.min.js"></script>
+        <script type="text/javascript" src="/static/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.slicknav.js"></script>
+        <script type="text/javascript" src="/static/js/util.js"></script>
+        
+        <link rel="stylesheet" href="/static/stylesheet/jquery-ui.css">
+        <link rel="stylesheet" href="/static/stylesheet/slicknav.css" />
+        <link rel="stylesheet" href="/static/stylesheet/style.css" />
+        
+    </head>
+    <body style="margin:0;padding:0;">
+        <div>
+            <!-- static header bar -->
+            <table width="100%" style="background:black;" id="header">
+                <tr>
+                    <td>
+                        <div id="topbar">
+                            Macgregor MDM Services
+                        </div>
+                    </td>    
+                    <td align="right" style="padding-right: 20px;" >
+                        <div style="padding-right: 20px;float:right;">
+                            <a href="/devices/" style="float: left; font-size: 20px;background: url(/static/images/devices.png) no-repeat ; width: 22px; height: 20px;display: block;" ></a>  
+                            <a href="/profiles/" style="font-size: 20px;background: url(/static/images/profiles.png) no-repeat ; width: 22px; height: 20px;float:left;margin-left:15px;" ></a>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+            </table>    
+
+            {% load staticfiles %}
+            <!--img src="{% static "images/ball.jpg" %}" alt="Ball"/-->
+            
+            <!-- dynamic body content --> 
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

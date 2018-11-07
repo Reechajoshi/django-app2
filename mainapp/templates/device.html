@@ -1,0 +1,200 @@
+<!-- extending static header bar -->
+{% extends 'base.html' %}
+{% block content %}
+
+    <script type="text/javascript" src="/js/?request=devices"></script>
+    
+	<!-- Devices sub heading -->
+    <div id="device_container">
+        <div id="devices_header">
+            <div style="float:left;">
+                <div style="display: inline-block;vertical-align:middle;">
+                    <input type="checkbox" onclick="select_all_devices(this);" id="select_all_devices" value="0" />
+                </div>
+                <div style="display: inline-block;vertical-align:middle;">
+                    Devices 
+                </div>
+            </div>
+            <div id="devices_menu">
+                
+                <div id="app_menu_div">&nbsp;
+                    <input type="hidden" name="menu_label" value="Applications">
+                    <ul id="app_menu" class="device_menu_block">
+                        <li><a href="#" onclick="procInstallAOTCommand(); return false;">Install AOT</a></li>
+                        <li><a href="#" onclick="procUnInstallAOTCommand('com.macgregor.dealing.dealing'); return false;">Remove AOT</a></li>
+                    </ul>
+                </div>
+                
+                <div id="profile_menu_div">&nbsp;
+                    <input type="hidden" name="menu_label" value="Profiles">
+                    <ul id="profile_menu" class="device_menu_block">
+                        <li>Add
+                            <ul>
+                                {% for p in profiles %}
+                                    <li><a href="#" onclick="procAddProfile('{{ p.pidentifier }}'); return false;">{{ p.pname }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li>Remove
+                            <ul>
+                                {% for p in profiles %}
+                                    <li><a href="#" onclick="procRemoveProfile('{{ p.pidentifier }}'); return false;">{{ p.pname }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div id="action_menu_div">&nbsp;
+                    <input type="hidden" name="menu_label" value="Actions">
+                    <ul id="action_menu" class="device_menu_block">
+                        <li><a href="#" onclick="procActionCommand(0); return false;">Lock Device</a></li>
+                        <li><a href="#" onclick="procActionCommand(1); return false;">Erase Device</a></li>
+                        <li><a href="#" onclick="procActionCommand(2); return false;">Clear Passcode</a></li>
+                        <li><a href="#" onclick="procActionCommand(3); return false;">Request Latest Information</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="loading">Loading..</div>
+            <div class="clear"></div>
+        </div>
+        
+        <div id="devices_details">
+            <div id="devices_list_container">
+                <div id="device_list" name="device_list">
+                    {% for d in devices %}
+                    <div id="device_list_block" name="device_list_block" onclick="showDeviceDetails('{{ d.udid }}', 0, this);">
+                        <div id="select_device" style="display:inline-block;vertical-align:top;">
+                            <input onclick="deviceChecked(event);"  name="{{ d.udid }}" id="select_device_chk" type="checkbox" value="selected" />
+                        </div>
+                    
+                        <div id="devices_name_block">
+                            <!-- if name of device is not present then display the udid -->
+                            <div id="device_name" name="device_name">
+                            {% if d.devicename|length > 0 %}
+                                {{ d.devicename }}
+                            {% else %} 
+                                No Name
+                            {% endif %}
+                            </div>
+                            
+                            <div id="device_register_date" name="device_register_date" style="font-size: 13px;">
+                                {{ d.regdate }}
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="hidden_device_id" name="hidden_device_id" value="{{ d.udid }}">
+                    </div>
+                    {% endfor %}	
+                </div>
+            </div>
+            
+            <div id="devices_desc_container" style="display:none;">
+                <div id="tabs">
+                    <ul onclick="set_divider_line_height();"> <!-- if the details container height is greater than window height, then set it with this method -->
+                        <li><a href="#tabs-1">General</a></li>
+                        <li><a href="#tabs-2">Profiles</a></li>
+                        <li><a href="#tabs-3">Applications</a></li>
+                    </ul>
+                    
+                    <div id="tabs-1">
+                        <div id="general_description">
+                            <div id="devices_desc_col">
+                                <div id="edit_device_detail">
+                                    <div id="edit_device_label">
+                                        Name: 
+                                    </div>
+                                    <div id="edit_device_input">
+                                        <input type="text" name="device_name" id="edit_device_name" />
+                                    </div>
+                                </div>
+                                
+                                <div id="edit_device_detail">
+                                    <div id="edit_device_label">
+                                        Reg Date :	
+                                    </div>
+                                    <div id="edit_device_input">
+                                        <div id="device_reg_date">Device Regist date will come here</div>
+                                    </div>
+                                </div>
+                                
+                                <div id="edit_device_detail">
+                                    <div id="edit_device_label">
+                                        UDID :
+                                    </div> 
+                                    <div id="edit_device_input">
+                                        <div id="device_udid">Device udid will come here</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div id="devices_desc_col">
+                                <div style="display:inline-block;margin-top:10px;" onclick="saveDeviceName();" class="button">Update</div>
+                            </div>
+                            
+                            <div style="border-bottom:1px solid black;" id="devices_info_container">
+                                <div id="device_info_row">
+                                    <div id="device_info_block" style="float:left;">
+                                        <div id="device_info_label">
+                                            OSVersion
+                                        </div>
+                                        <div name="OSVersion" id="device_info_val">
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="device_info_block" style="float:left;">
+                                        <div id="device_info_label">
+                                            BuildVersion
+                                        </div>
+                                        <div name="BuildVersion" id="device_info_val">
+                                        
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="device_info_block" style="float:left;">
+                                        <div id="device_info_label">
+                                            ModelName
+                                        </div>
+                                        <div name="ModelName" id="device_info_val">
+                                        
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="device_info_block" style="width:10%;" style="float:right;">
+                                        <a style="color: blue;" id="showDeviceInfoLink" href="#" onclick="showDeviceInfo(); return false;">more</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                    
+                                    <div style="display:none;" class="deviceInfoDiv" id="deviceInfoDiv" name="deviceInfoDiv">
+                                        <!-- Values will be filled through javascript -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 10px;">
+                                <div style="font-size: 12px; width: 250px;" onclick="getLatestDeviceInfo();" class="button">Request latest device information.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="tabs-2">
+                        <div id="profiles_description">
+                            <div id="device_profiles">
+                                There are currently no Profiles saved.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="tabs-3">
+                        <div id="apps_description">
+                            <div id="device_apps">
+                                There are currently no Applications saved.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

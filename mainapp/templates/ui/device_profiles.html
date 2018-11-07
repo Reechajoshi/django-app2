@@ -1,0 +1,49 @@
+<!-- extending static header bar -->
+{% extends 'ui/base.html' %}
+{% block content %}
+    {% load staticfiles %}
+    <div id="main_content">
+        <div id="devices_list_container">
+            <div id="devices_list_header_container">
+                <div id="devices_list_heading">Manage Devices Profiles</div>
+                <div class="clear"></div>
+            </div>
+            
+            <div id="devices_list_content_container">
+                
+            </div>
+        </div><!-- 
+        --><div id="devices_detail_container" style="display:inline-block;">
+            <div class="title_msg">
+                You may Add/Remove Profiles from device.
+            </div>  
+            <div id="profile_action_list_container" class="tab_container" >
+                {% if profiles %}
+                    {% for p in profiles %}
+                    <div id="profile_action_list_element">
+                        <div style="display:inline-block;width:49%;vertical-align:middle;">
+                            <div style="float:left;">
+                                <img src="/static/images/profile.jpg" style="width: 80px;">
+                            </div>
+                            <div style="float:left;">
+                                <div id="profile_action_list_element_name">
+                                    {{ p.pname }}
+                                </div>
+                                <div id="profile_action_list_element_desc">
+                                    {{ p.pdesc }}
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div><!--
+                        --><div style="font-size:14px;vertical-align:middle;text-align:right;display: inline-block;width:49%;margin-right:10px;">
+                            <div class="profile_action_menu"><a id="add_device_profile" href="#" onclick="procAddProfile( '{{ p.pidentifier }}', '{{ p.pname }}' ); return false;">add</a></div> | 
+                            <div class="profile_action_menu"><a id="remove_device_profile" href="#" onclick="procRemoveProfile( '{{ p.pidentifier }}', '{{ p.pname }}' ); return false;">remove</a></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div id="no_device_profiles">There are currently No Profiles</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

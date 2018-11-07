@@ -1,0 +1,35 @@
+{% extends 'ui/base.html' %}
+{% block content %}
+    <div id="login_container">
+        <div style="display:table-row;">
+            <div id="login">
+                <div style="width:30%;border:1px solid black;margin:0 auto;">
+                    <div id="login_logo_container">
+                        Macgregor MDM Services
+                    </div>
+                    <div id="header_bar"></div>
+                    <div id="login_content">
+                        <form method="POST" action="{{ request.get_full_path }}">
+                            {% if request.GET.loggedout == "1" %}
+                                <div id="login_row">You have been logged out.</div>
+                            {% elif request.GET.invalid == "1" %}
+                                <div id="login_row" class="redtxt" >Sorry, username/password incorrect!.</div>
+                            {% endif %}    
+                            <div id="login_row">
+                                <div id="login_label">Username:</div>
+                                <div id="login_input"><input type="text" name="username" ></div>
+                            </div>
+                            <div id="login_row">
+                                <div id="login_label">Password:</div>
+                                <div id="login_input"><input type="password" name="password" ></div>
+                            </div>
+                            <div id="login_row" style="text-align:center;">
+                                <div><button type="submit" id="submit_button" >Login</button></div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

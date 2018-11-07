@@ -1,0 +1,81 @@
+<!-- extending static header bar -->
+{% extends 'ui/base.html' %}
+{% block content %}
+    {% load staticfiles %}
+    <div id="main_content">
+        <div id="devices_list_container">
+            <div id="devices_list_header_container">
+                <div id="devices_list_heading">Device Actions</div>
+                <div class="clear"></div>
+            </div>
+            
+            <div id="devices_list_content_container">
+                
+            </div>
+        </div><!-- 
+        --><div id="devices_detail_container" class="tab_container">
+            <div id="device_action_heading" style="font-size: 20px;border-bottom: 1px solid black;font-weight: bold;">
+                Following are the actions you may apply to your device
+            </div>
+            <div id="device_actions_container" onclick="validateAddCommand(0); return false;">
+                <div class="device_action_img_container">
+                    <img src='{% static "images/lock.jpg" %}' />
+                </div>
+                
+                <div class="device_action_desc_container">
+                    <div class="device_action_title_container">
+                        Device Lock
+                    </div>
+                    <div class="device_action_desc" id="device_lock_desc">
+                        This will lock your Device
+                    </div>
+                </div>
+            </div>
+            
+            <div id="device_actions_container" onclick="validateAddCommand(1); return false;">
+                <div class="device_action_img_container">
+                    <img src='{% static "images/erase.jpg" %}' />
+                </div>
+                
+                <div class="device_action_desc_container">
+                    <div class="device_action_title_container">
+                        Erase Device
+                    </div>
+                    <div class="device_action_desc" id="device_erase_desc">
+                        This will erase your Device
+                    </div>
+                </div>
+            </div>
+            
+            <div id="device_actions_container" onclick="validateAddCommand(2); return false;">
+                <div class="device_action_img_container">
+                    <img src='{% static "images/openlock.png" %}' />
+                </div>
+                
+                <div class="device_action_desc_container">
+                    <div class="device_action_title_container">
+                        Clear Passcode
+                    </div>
+                    <div class="device_action_desc" id="device_passcode_desc">
+                        This will clear passcode
+                    </div>
+                </div>
+            </div>
+            
+            <div id="device_actions_container" onclick="validateAddCommand(3); return false;">
+                <div class="device_action_img_container">
+                    <img src='{% static "images/info.jpg" %}' />
+                </div>
+                
+                <div class="device_action_desc_container">
+                    <div class="device_action_title_container">
+                        Request Latest Device Info
+                    </div>
+                    <div class="device_action_desc" id="device_latest_info_desc">
+                        This will request Device to provide latest configuration details
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

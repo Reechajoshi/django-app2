@@ -1,0 +1,274 @@
+var _current_profile_list = false;
+var _current_displayed_profile = false;
+var _current_displayed_profile_id = false;
+
+profileIDs = [];
+profileNames = [];
+
+window.onload = function(){
+    // set tabs
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+    
+    getProfiles();
+}
+
+function getProfiles()
+{
+    $.ajax({
+        url: '/getProfileList/',
+        error:function(err)
+        {
+            console.log( err );
+            alert("request failed!!");
+        },
+        success: function(data)
+        {
+            var allProfile = data[ "response" ];
+            
+            _current_profile_list = allProfile;
+            
+            var profileListContentContainer = document.getElementById( 'profile_list_content_container' );
+            profileListContentContainer.innerHTML = "";
+            
+            // TODO: provide proper function, code redundant
+            if( allProfile.length > 0 )
+            {
+                for( var i = 0; i < allProfile.length; i++ )
+                {
+                    var profileId = allProfile[ i ][ 'profileId' ];
+                    var profileName = allProfile[ i ][ 'profileName' ];
+                    var profileDesc = ( allProfile[ i ][ 'profileDesc' ].length > 0 ) ? ( allProfile[ i ][ 'profileDesc' ] ) : ( "No Description" );
+                    
+                    var profileListBlock = document.createElement( 'DIV' );
+                    profileListBlock.setAttribute( "class", "profile_list_block" );
+                    profileListBlock.setAttribute( "name", profileId );
+                    profileListBlock.id = "profile_list_block";
+                    
+                    // this method will add the id, name and desc to the profile div
+                    addProfileListBlock(profileId, profileName, profileDesc, profileListBlock);
+                    
+                    profileListContentContainer.appendChild( profileListBlock );
+                }
+            }
+            else
+            {
+                // <div id="profile_list_block" class="profile_list_block"><div id="no_profile_div">There are currently no Profiles.</div></div>
+                var profileListBlock = document.createElement( 'DIV' );
+                profileListBlock.setAttribute( "class", "profile_list_block" );
+                profileListBlock.name = profileId;
+                profileListBlock.id = "profile_list_block";
+                
+                var noProfileListDiv = document.createElement('div'); // container div which wraps, profile name, desc and hidden id
+                noProfileListDiv.id = "no_profile_div";
+                noProfileListDiv.innerHTML = "There are currently no Profiles.";
+                profileListBlock.appendChild( noProfileListDiv );
+                
+                profileListContentContainer.appendChild( profileListBlock );
+            }
+        }
+    });
+}
+
+function addProfileListBlock(profileId, profileName, profileDesc, profileListBlock)
+{
+    profileIDs.push(profileId);
+    profileNames.push(profileName);
+                    
+    var profileDescTxt = profileDesc;
+    if(profileDescTxt.length > 100)
+        profileDescTxt.substring(0, 101) + "..."; 
+    
+    /* profile name */
+    var profileNameDiv = document.createElement( 'div' );
+    profileNameDiv.setAttribute( "class", "profile_name" );
+    profileNameDiv.id = "profile_name";
+    profileNameDiv.name = "profile_name";
+    profileNameDiv.innerHTML = profileName;
+    
+    /* profile description */
+    var profileDescDiv = document.createElement('div'); // profile desc
+    profileDescDiv.innerHTML = profileDescTxt;
+    profileDescDiv.setAttribute( "class", "profile_desc" );
+    profileDescDiv.id = "profile_desc";
+    profileDescDiv.name = "profile_desc";
+    
+    profileListBlock.appendChild(profileNameDiv);
+    profileListBlock.appendChild(profileDescDiv);
+    profileListBlock.onclick = function() { getProfileDetailsById( this ); return false;}
+    
+}
+
+function getProfileDetailsById( profileListBlock )
+{
+    var profileId = profileListBlock.getAttribute( "name" );
+    var json = { "profileidentifier" : profileId };
+    
+    _current_displayed_profile_id = profileId;
+    
+    showLoadingWithText("Requesting...");
+    
+    $.ajax({
+        url: '/getProfile/',
+        type: 'POST',
+        data: "request="+JSON.stringify(json),
+        error:function(err)
+        {
+            hideLoading();
+            console.log( err );
+            alert("request failed!!");
+        },
+        success: function(data)
+        {
+            hideLoading();
+            
+            console.log( data );
+            
+            _current_displayed_profile = data;
+            populateProfile(data);
+        }
+    })
+}
+
+function populateProfile(data, isNew)
+{
+    resetForm();
+    
+    var profile_detail_container = document.getElementById( "profile_detail_container" );
+    profile_detail_container.style.display = "inline-block";
+    // /* this line reset the tab to first tab */
+    $( "#tabs" ).tabs( "option", "active", 0 );
+    
+    var input_device_name = document.getElementById( "device_name" );
+    var input_device_description = document.getElementById( "device_description" );
+    var hidden_profileIdentifier = document.getElementById( "hidden_profileIdentifier" );
+    var hidden_profileUUID = document.getElementById( "hidden_profileUUID" );
+    var profile_detail_name = document.getElementById( "profile_detail_name" );
+    var profile_detail_date = document.getElementById( "profile_detail_date" );
+    
+    if(data)
+    {
+        // /* values retrived form db */
+        var device_name = data.response.PayloadDisplayName;
+        var device_description = data.response.PayloadDescription;
+        var profileUUID = data.response.PayloadUUID;
+        
+        // /* fill out general details: */
+        input_device_name.value = device_name;
+        input_device_description.value = device_description;
+        hidden_profileIdentifier.value = _current_displayed_profile_id;
+        hidden_profileUUID.value = profileUUID;
+        
+        if(!isNew)
+            profile_detail_name.innerHTML = device_name;
+            
+        // profile_detail_name.innerHTML = device_name;
+        
+        if( data.response.hasOwnProperty( "PayloadContent" ) ) // if PayloadContent is present as a property, which is default case..
+        {
+            if( data.response.hasOwnProperty( "PayloadDisplayName" ) ) // type will be specified here..
+            {
+                var paylod_display_name = data.response.PayloadContent[0].PayloadDisplayName;
+                // generic container id
+                var category_details_container_id = data.response.PayloadContent[0].PayloadDisplayName.toLowerCase() + "_details"; // <category>_id
+                var category_details_container = document.getElementById( category_details_container_id );
+                category_details_container.style.display = "block";
+                
+                var category_checkbox_id = "include_" + paylod_display_name.toLowerCase() + "_details"
+                var category_checkbox = document.getElementById( category_checkbox_id );
+                category_checkbox.checked = true;
+                
+                switch( paylod_display_name )
+                {
+                    case "Restrictions":
+                        // collect db values for restrictions details
+                        var allow_install_apps = data.response.PayloadContent[0].allowAppInstallation;
+                        var allow_camera = data.response.PayloadContent[0].allowCamera;
+                        var allow_face_time = data.response.PayloadContent[0].allowVideoConferencing;
+                        var allow_screen_capture = data.response.PayloadContent[0].allowScreenShot;
+                        var allow_auto_sync = data.response.PayloadContent[0].allowGlobalBackgroundFetchWhenRoaming;
+                        
+                        // define elements for restrictions details
+                        var install_apps = document.getElementById( "install_apps" );
+                        var camera = document.getElementById( "camera" );
+                        var face_time = document.getElementById( "face_time" );
+                        var screen_capture = document.getElementById( "screen_capture" );
+                        var auto_sync = document.getElementById( "auto_sync" );
+                        
+                        install_apps.checked = allow_install_apps;
+                        camera.checked = allow_camera;
+                        face_time.checked = allow_face_time;
+                        face_time.disabled = ( allow_camera ) ? ( false ) : ( true );
+                        screen_capture.checked = allow_screen_capture;
+                        auto_sync.checked = allow_auto_sync;
+                        
+                        break;
+                }
+            }
+        }
+        else
+            alert( "no property PayloadContent" );
+    }
+}
+
+function toggleRestrictionsSubquestion( main_ques_id, sub_ques_id )
+{
+    if( document.getElementById( main_ques_id ).checked == true )
+        document.getElementById( sub_ques_id ).disabled = false;
+    else
+        document.getElementById( sub_ques_id ).disabled = true;
+}
+
+function toggleNewProfileDetails(profile_detail_type) // general or restrictions
+{
+    var detail_container = document.getElementById( profile_detail_type + "_details" );
+    if( detail_container.style.display == 'none' )
+    {
+        detail_container.style.display = 'block';
+    }
+    else
+    {
+        detail_container.style.display = 'none';
+    }
+}
+
+function showCreateProfile()
+{
+    // resetProfileDiv();
+    var profile_detail_container = document.getElementById( "profile_detail_container" );
+    profile_detail_container.style.display = "inline-block";
+    
+    resetForm();
+    
+    _current_displayed_profile = false;
+}
+
+function cloneProfile()
+{
+    resetForm();
+    
+    _current_displayed_profile_id = false;
+    populateProfile(_current_displayed_profile, true);
+}
+
+function resetForm()
+{
+    document.getElementById( "profile_detail_name" ).innerHTML = "New Profile";
+    // set the values of elements to null
+    document.getElementById( 'device_name' ).value = "";
+    document.getElementById( 'device_description' ).value = "";
+    document.getElementById( 'hidden_profileIdentifier' ).value = "";
+    document.getElementById( "hidden_profileUUID" ).value = "";
+    
+    document.getElementById( 'include_restrictions_details' ).checked = false;
+    document.getElementById( 'restrictions_details' ).style.display = "none";
+    document.getElementById( 'install_apps' ).checked = true; // allow installing apps is checked by default
+    document.getElementById( 'camera' ).checked = true; // camera not checked
+    document.getElementById( 'face_time' ).checked = true;
+    document.getElementById( 'face_time' ).disabled = false;
+    document.getElementById( 'screen_capture' ).checked = true;
+    document.getElementById( 'auto_sync' ).checked = true;
+    
+    $( "#tabs" ).tabs('option', 'active', 0);
+}

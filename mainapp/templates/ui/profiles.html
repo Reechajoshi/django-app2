@@ -1,0 +1,100 @@
+<!-- extending static header bar -->
+{% extends 'ui/base.html' %}
+{% block content %}
+    {% load staticfiles %}
+    <div id="main_content">
+        <div id="profile_list_container">
+            <div id="profile_list_header_container">
+                <div id="profile_list_heading">Profiles</div><!--
+                --><div id="profile_menu_container">
+                    <a href="#" onclick="showCreateProfile(); return false;"><img style="height: 15px;width: 15px;" src='{% static "images/new.png" %}' /></a>
+                    <a href="#" onclick="deleteProfiles(); return false;"><img style="height: 15px;width: 15px;" src='{% static "images/delete.png" %}' /></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            <div id="profile_list_content_container"></div>
+        </div><!-- 
+        --><div id="profile_detail_container" style="display:none;">
+            <div id="profile_title_container">
+                <div id="profile_title">
+                    <div id="profile_detail_name"></div>  
+                    <div id="profile_detail_date_container">| <span id="profile_detail_date"></span></div>
+                </div>
+                <div id="profile_details_menu">
+                    <a href="#" onclick="cloneProfile(); return false;"><img src='{% static "images/clone.png" %}' /></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+            <div id="new_profile_container">
+                <input type="hidden" id="hidden_profileUUID" name="hidden_profileUUID" value="">
+                
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1">General</a></li>
+                        <li><a href="#tabs-2">Restrictions</a></li>
+                    </ul>
+                    <div id="tabs-1" class="tab_container" >
+                        <div id="general_container">
+                            <div id="general_details">
+                                <div id="general_ques_block">
+                                    <div id="profile_field_title"><span>Name</span><span>( Display name of the profile - shown on the device ): </span></div>
+                                    <div id="profile_field_element"><input name="device_name" id="device_name" type="text"></div>
+                                </div>
+                                <div id="general_ques_block">
+                                    <div id="profile_field_title"><span>Description</span><span>( Small text describing the profile ) :</span></div> 
+                                    <div id="profile_field_element"><textarea name="device_description" id="device_description" rows="4" cols="50" ></textarea></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tabs-2" class="tab_container" >
+                        <div id="restrictions_container">
+                            <div id="restrictions_heading">
+                                <div id="restriction_field_element"><input type="checkbox" onclick="toggleNewProfileDetails('restrictions');" name="include_restrictions_details" id="include_restrictions_details"></div>
+                                <div id="restriction_field_title"><label for="include_restrictions_details">Configure</label></div>
+                            </div>
+                            <!-- will be hidden at first -->
+                            <div id="restrictions_details" style="display:none;">
+                                <div id="restriction_ques_block">
+                                    <div id="restriction_field_element"><input type="checkbox" name="install_apps" id="install_apps" value="install_apps"  checked /></div>
+                                    <div id="restriction_field_title"><label for="install_apps">Allow installing apps</label></div>
+                                </div>
+                                
+                                <div id="restriction_ques_block">
+                                    <div id="restriction_field_element"><input type="checkbox" name="camera" id="camera" value="camera" onclick="toggleRestrictionsSubquestion('camera', 'face_time');" /></div>
+                                    <div id="restriction_field_title"><label for="camera">Allow use of camera</label></div>
+                                </div>
+                                
+                                <div id="restriction_sub_ques_block">
+                                    <div id="restriction_field_element"><input type="checkbox" name="face_time" id="face_time" value="face_time" disabled /></div>
+                                    <div id="restriction_field_title"><label for="face_time">Allow Face Time</label></div>
+                                </div>
+                                
+                                <div id="restriction_ques_block">
+                                    <div id="restriction_field_element"><input type="checkbox" name="screen_capture" id="screen_capture" value="screen_capture" checked /></div>
+                                    <div id="restriction_field_title"><label for="screen_capture">Allow screen capture</label></div>
+                                </div>
+                                
+                                <div id="restriction_ques_block">
+                                    <div id="restriction_field_element"><input type="checkbox" name="auto_sync" id="auto_sync" value="auto_sync" checked /></div>
+                                    <div id="restriction_field_title"><label for="auto_sync">Allow automatic sync while roaming</label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Save BUtton -->
+                    <div id="save_profile_container">
+                        <a class="button" style="padding: 2px 5px;font-size:14px;" href="#" onclick="validateProfileDetails(); return false;">Save Profile</a>
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
